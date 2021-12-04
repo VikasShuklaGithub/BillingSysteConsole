@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,16 +9,34 @@ public class BillGenerate {
 	
 		String p_name="";
 		int p_qty=0;
-		double p_price=0.0;
+		double p_price=0.0 ;
 		double p_totalPrice=0.0;
 		double finalPrice=0.0;
 		double discount , discountamount;
 		double finalAmountAfterDiscount=0.0;
+		String invoiceNo="";
+		String custname="";
 		char choice;
 		
+		
+		Invoice invoice=new Invoice();
+		
 		Scanner sc=new Scanner(System.in);
-		List<Product> listProduct=new ArrayList<Product>();
+		
+		System.out.println("Create Invoice");
+		
+		System.out.println("Enter Invoice Number");
+		invoiceNo=sc.nextLine();
+		
+		System.out.println("Enter Customer Name");
+		custname=sc.nextLine();
+		
+		List<Product> lstProduct = invoice.getLstProduct();
+		
+		
 		do {
+		
+
 		System.out.println("Enter Product Details : ");
 		
 		System.out.println("Enter Product Name : ");
@@ -36,7 +55,10 @@ public class BillGenerate {
 		finalPrice=finalPrice+p_totalPrice;
 		System.out.println("FInal Price : "+finalPrice);
 		
-		listProduct.add(new Product(p_name, p_qty, p_price, p_totalPrice));
+		
+		
+		lstProduct.add(new Product(p_name, p_qty, p_price, p_totalPrice));
+		
 		
 		
 		System.out.println("Want to Add More Item ?  (Y or N) ");
@@ -45,17 +67,20 @@ public class BillGenerate {
 		
 		sc.nextLine();
 		
+		invoice=new Invoice(invoiceNo, lstProduct);
 		
 		}while (choice == 'y' || choice == 'Y');
 		
 		Product.displayFormat();
 		
-		for(Product p:listProduct) {
+		for(Product p:lstProduct) {
 			p.display();
 			
 		}
 		
 		System.out.println("Final Price : "+finalPrice);
+		
+		invoice.displayInvoiceDetails();
 		
 		if(finalPrice <1000)
 		{
@@ -95,6 +120,9 @@ public class BillGenerate {
 			System.out.println("final Amount After 15% discount :  "+finalAmountAfterDiscount);
 			
 		}
+		
+		
+		
 
 	}
 

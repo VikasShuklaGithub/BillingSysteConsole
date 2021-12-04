@@ -8,6 +8,11 @@ public class Product {
 	
 
 
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Product(String p_name, int p_qty, double p_price, double p_Totalprice) {
 		super();
 		this.p_name = p_name;
